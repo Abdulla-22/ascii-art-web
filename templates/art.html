@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ascii Art</title>
+  <link rel="icon" type="image/x-icon" href="../favicon_io/favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-image: linear-gradient(30deg, rgba(219, 87, 205, 1), rgba(47, 237, 167, 1));
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 18px;
+      color: #333;
+    }
+
+    form {
+      margin-top: 10px;
+      
+    }
+
+    textarea {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      min-height: 65px; 
+      min-width: 125px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      max-width: 1700px;
+      max-height: 400px;
+    }
+
+    select.FontsOption {
+  width: 50%;
+  padding: 4px;
+  border: 2px solid #000000;
+  font-size: 16px;
+  color: #333333;
+  background-color: rgba(60, 220, 161, 0.128);
+  border-radius: 4px;
+}
+
+select.FontsOption option {
+
+  font-size: 16px;
+  color: #000000;
+}
+
+
+    .submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  color: #333333;
+  font-size: 18px;
+  border-radius: 0px;
+  width: 200px;
+  height: 40px;
+  font-weight: bold;
+  border: 2px solid #333333;
+  transition: 1s;
+  box-shadow: 5px 5px 0px 0px rgba(51, 51, 51, 1);
+  background-color: #ffffff27;
+}
+
+.submit-button:hover {
+  box-shadow: 0 0 #333;
+  color: #fff;
+  background-color: #333;
+}
+
+
+    .R {
+     background-color: #ffffff50;
+     align-content: center;
+     justify-content: center;
+     border-bottom: 10px;
+     border-radius: 15px;
+     margin-bottom: 10px;
+     width: 80vw;
+     height: 50vh;
+     min-height: 200px;
+     overflow-y:auto;
+     overflow-x:auto;
+    }
+
+    @media (max-width: 1200px) {
+      pre {
+        max-width: 90vw;
+        min-width: 300px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      pre {
+        max-width: 95vw;
+      }
+    }
+
+    .radio-group {
+      margin-top: 20px;
+    }
+
+    .radio-group label {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 16px;
+      color: #333;
+
+
+
+    }
+
+    hr {
+     border: none;
+     border-top: 3px double #333;
+     color: #333;
+     overflow: visible;
+     text-align: center;
+     height: 5px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+
+  <h1>Ascii art</h1>
+  <label for="myTextInput">Type Your Text:</label>
+
+  <form action="/submit" method="post">
+    <textarea id="userInput" name="userInput" placeholder="Enter your ASCII art text" required></textarea>
+    
+  
+    <div class="radio-group">
+
+      <select class="FontsOption" name="asciiOption">
+        <option name="asciiOption" value="standard">standard</option>
+        <option name="asciiOption" value="shadow">shadow</option>
+        <option name="asciiOption" value="thinkertoy">thinkertoy</option>
+      </select>
+  
+      <br><br>
+  
+    </div>
+    <input class="submit-button" type="submit" value="Submit">
+  </form>
+
+  <br>
+
+
+
+  <br>
+
+  <div class="R"> 
+  <pre name="asciiOption" id="taag_output_text" class="fig" contenteditable="true">{{ .ModifiedInput }}</pre>
+  </div>
+
+  
+</body>
+
+</html>
+
