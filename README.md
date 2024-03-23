@@ -27,3 +27,16 @@ To run the Ascii-Art-Web application, follow these steps:
 4. The server then generates the ASCII art based on the provided text and banner style.
 5. The generated ASCII art is included in the response, either as a separate page or appended to the main page, depending on the chosen implementation.
 6. The appropriate HTTP status codes are returned based on the success or failure of the request.
+
+
+## Currently Supported Banner names
+
+- [x] standard banner
+- [x] Thinkertoy banner
+- [x] shadow banner
+
+## Future updates 
+
+- [ ] reverse text
+- [ ] colored art
+- [ ] and many more...
