@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Struct to collect the data from the user
 type PageData struct {
 	UserInput     string
 	Banner        string
@@ -16,8 +17,8 @@ type PageData struct {
 
 func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 
+	// If it is a git method just show the main page
 	if r.Method == "GET" {
-	
 
 		if r.URL.Path != "/" {
 			w.WriteHeader(http.StatusNotFound)
@@ -25,8 +26,8 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Not Found (404)")
 			fmt.Println()
 
-
-		} else {
+		} else if r.URL.Path == "/" {
+			// To make all the filled look empty
 			userInput := ""
 			BannerName := ""
 			modifiedInput := ""
@@ -44,6 +45,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 
 		}
 
+		// In the post method
 	} else if r.Method == "POST" {
 
 		if r.URL.Path != "/submit" {
@@ -52,29 +54,30 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Not Found (404)")
 			fmt.Println()
 
-
 		} else {
 
+			// Take the input from the user
 			userInput := r.FormValue("userInput")
 			BannerName := r.FormValue("asciiOption")
 
-			//Testing to fix the new line error
-			// FIXME: fix the enter and (new line)
 			// TODO: move this part to the art functions
+
+			// Check the input if they are acspted or not
 			for _, ascii := range userInput {
 				if ((ascii < 32) || (ascii > 126)) && (ascii != 10) && (ascii != 13) {
-					
+
 					http.ServeFile(w, r, "../templates/BadReq.html")
 					fmt.Println("Bad Request (400)")
 					fmt.Println("USE ONLY ENGLISH")
 					fmt.Println()
 					break
-					
+
 				} else {
 					continue
 				}
 			}
 
+			// Do the modification to the string
 			ok := strings.Split(userInput, "\r")
 
 			for i, l := range ok {
@@ -85,6 +88,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 			f := strings.Join(ok, " ")
 			modifiedInput, err1 := web_art.PrintArt(f, BannerName)
 
+			// Make sure the file is there or not.
 			if err1 != "" {
 				w.WriteHeader(http.StatusInternalServerError)
 				http.ServeFile(w, r, "../templates/InternalServerError.html")
@@ -100,6 +104,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 			}
 
 			tpl, err := template.ParseFiles("../templates/art.html")
+
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				http.ServeFile(w, r, "../templates/InternalServerError.html")
@@ -108,6 +113,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
+			// Write the data to the website
 			err = tpl.ExecuteTemplate(w, "art.html", data)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -116,7 +122,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 				fmt.Println()
 				return
 			}
-		
+
 			w.WriteHeader(http.StatusOK)
 			fmt.Println("OK (200)")
 			fmt.Println()
@@ -124,7 +130,7 @@ func HandlerFunc(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else {
-		//Do the bad requst option here.
+		//Do the bad requst option here if any thing go wronge.
 		w.WriteHeader(http.StatusInternalServerError)
 		http.ServeFile(w, r, "../templates/InternalServerError.html")
 		fmt.Println("Internal Server Error (500)")
