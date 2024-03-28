@@ -7,7 +7,6 @@ import (
 	"net/http"
 )
 
-
 func main() {
 
 	// Start the server
